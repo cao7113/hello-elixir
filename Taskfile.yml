@@ -1,0 +1,27 @@
+# https://taskfile.dev
+version: '2'
+tasks:
+  default:
+    cmds:
+      - task: t
+  sh:
+    cmds:
+      - iex -S mix
+    silent: true
+  t:
+    deps:
+      - task: install-deps
+    cmds:
+      - mix test
+  install-deps:
+    cmds:
+      - mix deps.get
+
+  # mix like bundle+rake，mix help
+  setup:
+    name: setup dev environment
+    cmds:
+      # join to hex orgnazation by owner
+      # - mix hex.user auth
+      - mix deps.get    # install dependency
+      # - task: db-reset
