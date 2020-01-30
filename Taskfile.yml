@@ -3,12 +3,12 @@ version: '2'
 tasks:
   default:
     cmds:
-      - task: t
+      - task: test
   sh:
     cmds:
       - iex -S mix
     silent: true
-  t:
+  test:
     deps:
       - task: install-deps
     cmds:
@@ -17,11 +17,36 @@ tasks:
     cmds:
       - mix deps.get
 
-  # mix like bundle+rake，mix help
-  setup:
-    name: setup dev environment
+  install-hex:
+    desc: If we have just installed Elixir for the first time, we will need to install the Hex package manager as well. Hex is necessary to get a Phoenix app running (by installing dependencies) and to install any extra dependencies we might need along the way
     cmds:
-      # join to hex orgnazation by owner
-      # - mix hex.user auth
-      - mix deps.get    # install dependency
-      # - task: db-reset
+      - mix local.hex
+      # into ~/.asdf/installs/elixir/1.8.2-otp-21/.mix/archives/
+
+  # https://elixir-lang.org/install.html
+  install-elixir:
+    name: install elixir and erlang by asdf
+    cmds:
+      - asdf plugin-add elixir
+      # - asdf list-all elixir
+      - asdf install elixir 1.8.2
+      - asdf plugin-add erlang
+      # - asdf list-all erlang
+      - asdf install erlang 21.3.8.9
+      - asdf global elixir 1.8.2
+      - asdf global erlang 21.3.8.9
+      - task: version
+
+  version:
+    cmds:
+      - elixir --version
+
+  ## Phoenix
+  # should have Elixir, Erlang, Hex, and the Phoenix archive installed
+  install-phx:
+    cmds:
+      - mix archive.install hex phx_new 1.4.12
+
+  new-phx:
+    cmds:
+      - mix phx.new hello-phx --module HelloPhx --app hello_phx --database mysql
