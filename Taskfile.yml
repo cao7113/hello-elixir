@@ -13,6 +13,12 @@ tasks:
       - task: install-deps
     cmds:
       - mix test
+
+  format:
+    desc: run mix format
+    cmds:
+      - mix format
+      
   install-deps:
     cmds:
       - mix deps.get
@@ -22,6 +28,7 @@ tasks:
     cmds:
       - mix local.hex
       # into ~/.asdf/installs/elixir/1.8.2-otp-21/.mix/archives/
+      # ref asdf where elixir
 
   # https://elixir-lang.org/install.html
   install-elixir:
