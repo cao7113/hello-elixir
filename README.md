@@ -26,5 +26,7 @@ https://github.com/elixir-ecto/ecto/tree/master/examples/friends
 ## History
 
 2020.2.29 add missing supervision tree to use ecto by `mix new . -elixir --module HelloElixir --app hello_elixir --sup`, skip already exists files except new-generating `lib/hello_elixir/application.ex`
+
 2020.2.29 add ecto by `mix ecto.gen.repo -r HelloElixir.Repo`
+
 2020.1.21 created by `mix new hello-elixir --module HelloElixir --app hello_elixir`

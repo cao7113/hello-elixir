@@ -7,7 +7,9 @@ defmodule HelloElixir.MixProject do
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env()),
+      aliases: aliases()
     ]
   end
 
@@ -27,6 +29,16 @@ defmodule HelloElixir.MixProject do
       {:mox, "~> 0.5", only: :test},
       {:ecto_sql, "~> 3.1"},
       {:myxql, ">= 0.0.0"}
+    ]
+  end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp aliases do
+    [
+      test: ["format", "ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
