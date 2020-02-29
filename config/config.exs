@@ -3,11 +3,13 @@
 use Mix.Config
 
 config :hello_elixir, HelloElixir.Repo,
-  database: "hello_elixir_repo",
+  database: "hello_elixir",
   username: "root",
   password: "",
   # port: 13306,
   hostname: "localhost"
+
+config :hello_elixir, ecto_repos: [HelloElixir.Repo]
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this

@@ -23,3 +23,5 @@ erl_crash.dump
 hello_elixir-*.tar
 
 /.elixir_ls
+
+/priv/repo/structure.sql
