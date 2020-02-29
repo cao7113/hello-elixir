@@ -1,5 +1,6 @@
 defmodule UserTest do
   use HelloElixir.RepoCase
+  import DataFactory
 
   # User |> Repo.get_by(name: "xxx") # get one record by attribute
   # User |> Ecto.Query.where(name: "xxx") |> Repo.all
@@ -8,6 +9,12 @@ defmodule UserTest do
   # name = "Smith" # pin variable
   # User |> Ecto.Query.where(name: ^name) |> Repo.all
   # The pin operator instructs the query builder to use parameterised SQL queries protecting against SQL injection.
+
+  test "use factory" do
+    user = insert!(:user, name: "tt1")
+
+    assert user.name == "tt1"
+  end
 
   test "create user" do
     params = %{name: "t1", email: "a@b.c"}
