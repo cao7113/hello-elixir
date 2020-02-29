@@ -14,4 +14,16 @@ defmodule BasicTest do
 
     assert result == "matched"
   end
+
+  test "" do
+    "hit me"
+    |> case do
+      "hit" <> _ ->
+        # should hit this
+        assert 1 == 1
+
+      otherwise ->
+        assert otherwise == "never occur"
+    end
+  end
 end

@@ -8,6 +8,7 @@ tasks:
     cmds:
       - iex -S mix
     silent: true
+    
   test:
     deps:
       - task: install-deps
@@ -48,7 +49,8 @@ tasks:
     cmds:
       - elixir --version
 
-  ## Phoenix
+  ###################################################
+  #        Phoenix
   # should have Elixir, Erlang, Hex, and the Phoenix archive installed
   install-phx:
     cmds:
