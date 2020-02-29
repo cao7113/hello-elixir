@@ -1,3 +1,5 @@
+Remember that explicit is better than implicit. Clear code is better than concise code.
+
 ## iex
 
 recompile
