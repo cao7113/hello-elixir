@@ -28,7 +28,9 @@ defmodule HelloElixir.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:mox, "~> 0.5", only: :test},
       {:ecto_sql, "~> 3.1"},
-      {:myxql, ">= 0.0.0"}
+      {:myxql, ">= 0.0.0"},
+      {:quantum, "~> 2.4"},
+      {:timex, "~> 3.6"}
     ]
   end
 
