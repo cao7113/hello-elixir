@@ -13,12 +13,8 @@ tasks:
     deps:
       - task: install-deps
     cmds:
-      - mix test
-
-  format:
-    desc: run mix format
-    cmds:
       - mix format
+      - mix test
       
   install-deps:
     cmds:

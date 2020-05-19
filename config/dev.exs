@@ -14,3 +14,6 @@ config :hello_elixir, HelloElixir.Scheduler,
     # Every minute
     {"* * * * *", fn -> IO.puts("Hi at #{DateTime.utc_now()}...") end}
   ]
+
+config :logger,
+  level: :debug

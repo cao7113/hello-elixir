@@ -7,3 +7,6 @@ config :hello_elixir, HelloElixir.Repo,
   # port: 13306,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :logger,
+  level: :info

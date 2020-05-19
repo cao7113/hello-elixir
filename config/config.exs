@@ -9,7 +9,8 @@ config :hello_elixir, HelloElixir.Repo,
   # port: 13306,
   hostname: "localhost"
 
-config :hello_elixir, ecto_repos: [HelloElixir.Repo]
+config :hello_elixir,
+  ecto_repos: [HelloElixir.Repo]
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -29,9 +30,8 @@ config :hello_elixir, ecto_repos: [HelloElixir.Repo]
 #
 #     config :logger, level: :info
 #
-config :hello_elixir, key1: :testvalue1
-
-config :logger, level: :debug
+config :hello_elixir,
+  key1: :testvalue1
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
