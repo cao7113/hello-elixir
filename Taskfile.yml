@@ -1,5 +1,8 @@
 # https://taskfile.dev
-version: '2'
+version: '3'
+vars:
+  erlangVersion: "24.2.1"
+  elixirVersion: "1.13.2-otp-24"
 tasks:
   default:
     cmds:
@@ -27,23 +30,41 @@ tasks:
       # into ~/.asdf/installs/elixir/1.8.2-otp-21/.mix/archives/
       # ref asdf where elixir
 
-  # https://elixir-lang.org/install.html
-  install-elixir:
-    name: install elixir and erlang by asdf
+  ###################################################
+  #   Setup Env
+  setup:
     cmds:
-      - asdf plugin-add elixir
-      # - asdf list-all elixir
-      - asdf install elixir 1.8.2
-      - asdf plugin-add erlang
-      # - asdf list-all erlang
-      - asdf install erlang 21.3.8.9
-      - asdf global elixir 1.8.2
-      - asdf global erlang 21.3.8.9
-      - task: version
+    - task: install-asdf-elixir
+    # - task: install-brew-elixir
+    - task: version
 
   version:
     cmds:
       - elixir --version
+
+  # https://elixir-lang.org/install.html
+  install-asdf-elixir:
+    deps:
+      - init-asdf-plugins
+    cmds:
+      - asdf install erlang {{.erlangVersion}}
+      - asdf install elixir {{.elixirVersion}}
+      - asdf local elixir {{.elixirVersion}}
+      - task: version
+  init-asdf-plugins:
+    cmds:
+      - asdf plugin-add elixir || true
+      - asdf plugin-add erlang || true
+  set-global-exlixir:
+    cmds:
+      - asdf global erlang {{.erlangVersion}}
+      - asdf global elixir {{.elixirVersion}}
+
+  install-brew-elixir:
+    status:
+    - which elixir
+    cmds:
+    - brew install elixir
 
   ###################################################
   #        Phoenix
@@ -55,3 +76,19 @@ tasks:
   new-phx:
     cmds:
       - mix phx.new hello-phx --module HelloPhx --app hello_phx --database mysql
+
+  ###################################################
+  #        Docker
+
+  dk-pull:
+    desc: install as https://hub.docker.com/r/hexpm/elixir/tags?page=1&ordering=name&name=1.13.2-erlang-24.2-al
+    cmds:
+    - docker pull hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0
+
+  dk-sh:
+    cmds:
+    - docker run -it --rm hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0 sh
+
+  ###################################################
+  # Elixir & Erlang
+  # https://hexdocs.pm/elixir/compatibility-and-deprecations.html#compatibility-between-elixir-and-erlang-otp
