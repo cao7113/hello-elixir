@@ -7,12 +7,17 @@ tasks:
   default:
     cmds:
       - task: test
+
+  iex: iex
+
   sh:
+    desc: "run into iex session"
     cmds:
       - iex -S mix
     silent: true
-    
+
   test:
+    desc: "run text"
     deps:
       - task: install-deps
     cmds:
@@ -20,6 +25,7 @@ tasks:
       - mix test
       
   install-deps:
+    desc: "install deps"
     cmds:
       - mix deps.get
 
@@ -31,19 +37,28 @@ tasks:
       # ref asdf where elixir
 
   ###################################################
+  #   VsCode 
+  # extension: 
+  # https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls
+
+
+  ###################################################
   #   Setup Env
   setup:
+    desc: "setup elixir dev env"
     cmds:
     - task: install-asdf-elixir
     # - task: install-brew-elixir
     - task: version
 
   version:
+    desc: "show elixir version"
     cmds:
       - elixir --version
 
   # https://elixir-lang.org/install.html
   install-asdf-elixir:
+    desc: "install elxir by asdf"
     deps:
       - init-asdf-plugins
     cmds:
@@ -52,15 +67,18 @@ tasks:
       - asdf local elixir {{.elixirVersion}}
       - task: version
   init-asdf-plugins:
+    desc: "init elixir asdf plugin"
     cmds:
       - asdf plugin-add elixir || true
       - asdf plugin-add erlang || true
   set-global-exlixir:
+    desc: "set global elixir version"
     cmds:
       - asdf global erlang {{.erlangVersion}}
       - asdf global elixir {{.elixirVersion}}
 
   install-brew-elixir:
+    desc: "install elixir by mac-os brew"
     status:
     - which elixir
     cmds:
@@ -70,10 +88,12 @@ tasks:
   #        Phoenix
   # should have Elixir, Erlang, Hex, and the Phoenix archive installed
   install-phx:
+    desc: "install phx"
     cmds:
       - mix archive.install hex phx_new 1.4.12
 
   new-phx:
+    desc: "new phx project"
     cmds:
       - mix phx.new hello-phx --module HelloPhx --app hello_phx --database mysql
 
@@ -81,13 +101,14 @@ tasks:
   #        Docker
 
   dk-pull:
-    desc: install as https://hub.docker.com/r/hexpm/elixir/tags?page=1&ordering=name&name=1.13.2-erlang-24.2-al
+    desc: docker pull image as https://hub.docker.com/r/hexpm/elixir/tags?page=1&ordering=name&name=1.13.2-erlang-24.2-al
     cmds:
     - docker pull hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0
 
   dk-sh:
+    desc: "run into docker elixir session"
     cmds:
-    - docker run -it --rm hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0 sh
+    - docker run -it --rm hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0 iex
 
   ###################################################
   # Elixir & Erlang
