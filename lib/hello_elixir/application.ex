@@ -10,8 +10,6 @@ defmodule HelloElixir.Application do
     children = [
       # Starts a worker by calling: HelloElixir.Worker.start_link(arg)
       # {HelloElixir.Worker, arg}
-      HelloElixir.Repo,
-      HelloElixir.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
