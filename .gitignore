@@ -22,6 +22,8 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 hello_elixir-*.tar
 
-/.elixir_ls
+# Temporary files, for example, from tests.
+/tmp/
 
-/priv/repo/structure.sql
+
+/.elixir_ls
