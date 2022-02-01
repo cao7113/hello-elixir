@@ -26,8 +26,10 @@ tasks:
   
   init-create:
     cmds:
-    # - mix ecto.gen.repo -r HelloElixir.Repo
     - mix new . --module HelloElixir --app hello_elixir --sup
+  tmp-demo:
+    cmds:
+    - mix new tmp-demo --module TmpDemo --app tmp_demo --sup
       
   install-deps:
     desc: "install deps"

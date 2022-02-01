@@ -2,7 +2,14 @@ defmodule MapTest do
   use ExUnit.Case
 
   test "basic map" do
-    some_map = %{this_is_a_key: "and a value"}
-    assert true == is_map(some_map)
+    m = %{this_is_a_key: "val1"}
+    assert is_map(m)
+    assert m.this_is_a_key == "val1"
+
+    m = Map.put(m, :id, 1)
+    assert 1 == m.id
+    # fail when name not exists
+    # m1 = %{m | name: "test"}
+    # assert "test" === m1.name
   end
 end

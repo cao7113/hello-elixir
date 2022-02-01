@@ -1,6 +1,24 @@
-# https://hexdocs.pm/elixir/Kernel.SpecialForms.html#with/1
-defmodule WithTest do
+defmodule CondTest do
   use ExUnit.Case
+
+  def max2(a, b) do
+    cond do
+      a >= b -> a
+      true -> b
+    end
+  end
+
+  def max2case(a, b) do
+    case a >= b do
+      true -> a
+      false -> b
+    end
+  end
+
+  test "max" do
+    assert 2 == max2(1, 2)
+    assert 2 == max2case(1, 2)
+  end
 
   test "try with" do
     opts = %{width: 10}
