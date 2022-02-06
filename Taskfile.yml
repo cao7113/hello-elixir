@@ -27,7 +27,8 @@ tasks:
   init-create:
     cmds:
     - mix new . --module HelloElixir --app hello_elixir --sup
-  tmp-demo:
+
+  create-tmp-demo:
     cmds:
     - mix new tmp-demo --module TmpDemo --app tmp_demo --sup
       
