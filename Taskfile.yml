@@ -34,9 +34,15 @@ tasks:
   create-tmp-demo:
     cmds:
     - mix new tmp-demo --module TmpDemo --app tmp_demo --sup
-  create-um-demo:
+
+  create-tmp-demo-umb:
     cmds:
     - mix new tmp_demo_umbrella --umbrella
+
+  create-mix-guide-kv:
+    desc: create tmp KV as guide
+    cmds:
+    - mix new kv --module KV --app kv
 
   install-deps:
     desc: "install deps"

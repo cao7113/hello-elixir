@@ -43,4 +43,14 @@ defmodule Meta.QuotedExpressionTest do
 
     assert {:sum, [], [1, 2, 3]} == q
   end
+
+  test "Macro.escape/2" do
+    m = %{a: 1}
+    f = quote do: unquote(m)
+    assert m == m
+
+    # map should escaped before unquoting
+    e = quote do: unquote(Macro.escape(m))
+    assert {:%{}, [], [{:a, 1}]} == e
+  end
 end
