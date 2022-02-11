@@ -1,5 +1,6 @@
-defmodule HelloElixirTest do
+defmodule HelloTest do
   use ExUnit.Case
+
   doctest HelloElixir
 
   test "greets the world" do

@@ -1,6 +1,5 @@
+# https://elixir-lang.org/getting-started/meta/macros.html
 # https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2
-# looks great!
-# https://elixir-lang.org/getting-started/meta/macros.html#macros-hygiene
 
 defmodule Math do
   defmacro squared(x) do

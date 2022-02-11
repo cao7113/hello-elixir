@@ -3,6 +3,9 @@ version: '3'
 vars:
   erlangVersion: "24.2.1"
   elixirVersion: "1.13.2-otp-24"
+includes:
+  phx: Taskfile-phx.yml
+
 tasks:
   default:
     cmds:
@@ -31,7 +34,10 @@ tasks:
   create-tmp-demo:
     cmds:
     - mix new tmp-demo --module TmpDemo --app tmp_demo --sup
-      
+  create-um-demo:
+    cmds:
+    - mix new tmp_demo_umbrella --umbrella
+
   install-deps:
     desc: "install deps"
     cmds:
@@ -70,20 +76,33 @@ tasks:
     deps:
       - init-asdf-plugins
     cmds:
-      - asdf install erlang {{.erlangVersion}}
+      - task: install-asdf-erlang
       - asdf install elixir {{.elixirVersion}}
       - asdf local elixir {{.elixirVersion}}
       - task: version
+
   init-asdf-plugins:
     desc: "init elixir asdf plugin"
     cmds:
+      - task: init-asdf-erlang
       - asdf plugin-add elixir || true
-      - asdf plugin-add erlang || true
+
   set-global-exlixir:
     desc: "set global elixir version"
     cmds:
       - asdf global erlang {{.erlangVersion}}
       - asdf global elixir {{.elixirVersion}}
+  
+  install-asdf-erlang:
+    desc: "install asdf erlang"
+    cmds:
+      - task: init-asdf-erlang
+      - asdf install erlang {{.erlangVersion}}
+  
+  init-asdf-erlang:
+    desc: "init asdf erlang plugin"
+    cmds:
+      - asdf plugin-add erlang || true
 
   install-brew-elixir:
     desc: "install elixir by mac-os brew"
@@ -91,19 +110,6 @@ tasks:
     - which elixir
     cmds:
     - brew install elixir
-
-  ###################################################
-  #        Phoenix
-  # should have Elixir, Erlang, Hex, and the Phoenix archive installed
-  install-phx:
-    desc: "install phx"
-    cmds:
-      - mix archive.install hex phx_new 1.4.12
-
-  new-phx:
-    desc: "new phx project"
-    cmds:
-      - mix phx.new hello-phx --module HelloPhx --app hello_phx --database mysql
 
   ###################################################
   #        Docker

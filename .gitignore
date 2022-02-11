@@ -27,4 +27,5 @@ hello_elixir-*.tar
 
 
 /.elixir_ls
-/tmp-demo
+/tmp*
+*.beam

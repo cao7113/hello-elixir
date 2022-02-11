@@ -1,0 +1,45 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  open:
+    desc: "open web"
+    cmds:
+    - open http://localhost:4000/
+    
+  install-new-generator:
+    desc: "install phx.new generator as https://hexdocs.pm/phoenix/installation.html"
+    cmds:
+      #Once we have Elixir and Erlang, we are ready to install the Phoenix application generator:
+      - mix archive.install hex phx_new 
+      #- mix help phx.new
+    
+  create-demo:
+    desc: "new phx demo project"
+    cmds:
+      - mix phx.new tmp-phx-demo --module TmpPhxDemo --app tmp_phx_demo  # --database mysql or --no-ecto
+
+  init-pg-user:
+    desc: create init dev user
+    cmds:
+    - echo use postgres as default password
+    - createuser postgres -s -P
+
+  sql:
+    desc: go into db sql
+    cmds:
+    - pgcli tmp_phx_demo_dev
+    # \l+
+    # \dt+
+
+  install-pg:
+    desc: install pg
+    sources:
+    - which psql
+    cmds:
+    - brew install postgresql
+  install-pgcli:
+    desc: install pgcli
+    sources:
+    - which pgcli
+    cmds:
+    - brew install pgcli

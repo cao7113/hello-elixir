@@ -1,13 +1,13 @@
 defmodule LoggerTest do
   use ExUnit.Case
-  require Logger
+  import Logger
 
   test "logger level" do
     # current logger level is info in config
-    Logger.info("this is info message")
-    Logger.debug("this is debug message")
-    Logger.warn("this is warn message")
-    Logger.error("this is error message")
+    info("this is info message")
+    debug("this is debug message")
+    warn("this is warn message")
+    error("this is error message")
 
     # todo
     # Enum.each([:info, :debug, :warn, :error], fn l ->
