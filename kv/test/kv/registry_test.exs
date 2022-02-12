@@ -21,7 +21,6 @@ defmodule Test.Kv.RegistryTest do
   test "removes buckets on exit", %{registry: registry} do
     KV.Registry.create(registry, "shopping")
     {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
-    send(registry, :state)
     Agent.stop(bucket)
     assert KV.Registry.lookup(registry, "shopping") == :error
   end

@@ -1,4 +1,4 @@
-defmodule KV.BucketTest do
+defmodule Test.Kv.BucketTest do
   use ExUnit.Case, async: true
   alias KV.Bucket
 

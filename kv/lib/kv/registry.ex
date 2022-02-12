@@ -8,6 +8,7 @@ defmodule KV.Registry do
   Start registry server
   """
   def start_link(opts \\ []) do
+    Logger.debug("starting registry with opts: #{inspect(opts)}")
     GenServer.start_link(__MODULE__, %{}, opts)
   end
 
@@ -26,6 +27,22 @@ defmodule KV.Registry do
     GenServer.call(r, {:lookup, name})
   end
 
+  def state(r) do
+    GenServer.call(r, :state)
+  end
+
+  def create2(name) do
+    GenServer.cast(__MODULE__, {:create, name})
+  end
+
+  def lookup2(name) do
+    GenServer.call(__MODULE__, {:lookup, name})
+  end
+
+  def state2() do
+    GenServer.call(__MODULE__, :state)
+  end
+
   # server-side callbacks
 
   @impl true
@@ -40,6 +57,11 @@ defmodule KV.Registry do
   end
 
   @impl true
+  def handle_call(:state, _from, state) do
+    {:reply, state, state}
+  end
+
+  @impl true
   def handle_cast({:create, name}, state) do
     {names, refs} = state
 
@@ -48,7 +70,7 @@ defmodule KV.Registry do
     else
       {:ok, bucket} = KV.Bucket.start_link([])
       ref = Process.monitor(bucket)
-      Logger.info("created bucket with name: #{name} and #{inspect(bucket)}")
+      Logger.debug("created bucket with name: #{name} and #{inspect(bucket)}")
 
       new_names = Map.put(names, name, bucket)
       new_refs = Map.put(refs, ref, name)
@@ -63,7 +85,7 @@ defmodule KV.Registry do
     new_names = Map.delete(names, name)
     new_refs = Map.delete(refs, ref)
 
-    Logger.info(
+    Logger.debug(
       "clean DOWN process name: #{inspect(name)} pid: #{inspect(names[name])} for reason: #{inspect(reason)}"
     )
 
@@ -71,14 +93,8 @@ defmodule KV.Registry do
   end
 
   @impl true
-  def handle_info(:state, state) do
-    Logger.info("current registry state: #{inspect(state)}")
-    {:noreply, state}
-  end
-
-  @impl true
   def handle_info(msg, state) do
-    Logger.info("unexpected msg: #{inspect(msg)} for state: #{inspect(state)}")
+    Logger.error("unexpected msg: #{inspect(msg)} for state: #{inspect(state)}")
     {:noreply, state}
   end
 end
