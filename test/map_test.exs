@@ -11,5 +11,8 @@ defmodule MapTest do
     # fail when name not exists
     # m1 = %{m | name: "test"}
     # assert "test" === m1.name
+
+    m = %{a: 3}
+    assert {3, %{}} == Map.pop(m, :a)
   end
 end

@@ -19,7 +19,15 @@ defmodule KV.Bucket do
   @doc """
   put key, value into a bucket
   """
+  @spec put(pid(), String.t(), term()) :: any()
   def put(pid, k, val) do
     Agent.update(pid, &Map.put(&1, k, val))
+  end
+
+  @doc """
+  delete value
+  """
+  def delete(pid, k) do
+    Agent.get_and_update(pid, &Map.pop(&1, k))
   end
 end

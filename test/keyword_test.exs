@@ -7,5 +7,7 @@ defmodule KeywordTest do
     kw = [name: :geek, age: 3]
     assert kw[:name] == :geek
     assert Access.get(kw, :age) == 3
+
+    assert is_list(kw)
   end
 end
