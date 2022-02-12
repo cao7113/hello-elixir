@@ -30,28 +30,55 @@ defmodule KV.Registry do
 
   @impl true
   def init(_opts) do
-    {:ok, %{}}
+    {:ok, {%{}, %{}}}
   end
 
   @impl true
-  def handle_call({:lookup, name}, _from, names) do
-    {:reply, Map.fetch(names, name), names}
+  def handle_call({:lookup, name}, _from, state) do
+    {names, _} = state
+    {:reply, Map.fetch(names, name), state}
   end
 
   @impl true
-  def handle_cast({:create, name}, names) do
+  def handle_cast({:create, name}, state) do
+    {names, refs} = state
+
     if Map.has_key?(names, name) do
-      {:noreply, names}
+      {:noreply, state}
     else
       {:ok, bucket} = KV.Bucket.start_link([])
-      Logger.info("bucket with name: #{name} created with #{inspect(bucket)}")
-      {:noreply, Map.put(names, name, bucket)}
+      ref = Process.monitor(bucket)
+      Logger.info("created bucket with name: #{name} and #{inspect(bucket)}")
+
+      new_names = Map.put(names, name, bucket)
+      new_refs = Map.put(refs, ref, name)
+      {:noreply, {new_names, new_refs}}
     end
   end
 
   @impl true
-  def handle_info(:list, names) do
-    Logger.info("current names: #{inspect(names)}")
-    {:noreply, names}
+  def handle_info({:DOWN, ref, :process, _obj, reason}, state) do
+    {names, refs} = state
+    name = refs[ref]
+    new_names = Map.delete(names, name)
+    new_refs = Map.delete(refs, ref)
+
+    Logger.info(
+      "clean DOWN process name: #{inspect(name)} pid: #{inspect(names[name])} for reason: #{inspect(reason)}"
+    )
+
+    {:noreply, {new_names, new_refs}}
+  end
+
+  @impl true
+  def handle_info(:state, state) do
+    Logger.info("current registry state: #{inspect(state)}")
+    {:noreply, state}
+  end
+
+  @impl true
+  def handle_info(msg, state) do
+    Logger.info("unexpected msg: #{inspect(msg)} for state: #{inspect(state)}")
+    {:noreply, state}
   end
 end

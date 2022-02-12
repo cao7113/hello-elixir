@@ -17,4 +17,14 @@ defmodule Test.Kv.RegistryTest do
     KV.Bucket.put(b, "milk", 3)
     assert 3 == KV.Bucket.get(b, "milk")
   end
+
+  test "removes buckets on exit", %{registry: registry} do
+    KV.Registry.create(registry, "shopping")
+    {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
+    send(registry, :state)
+    Agent.stop(bucket)
+    assert KV.Registry.lookup(registry, "shopping") == :error
+  end
 end
+
+# alias KV.Registry, as: Reg; {:ok, r} = Reg.start_link(); Reg.create(r, "shopping"); {:ok, b} = Reg.lookup(r, "shopping"); send r, :state;

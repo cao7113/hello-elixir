@@ -62,3 +62,13 @@ defmodule ProcessTest do
     assert :world == Agent.get(pid, fn m -> Map.get(m, :hello) end)
   end
 end
+
+# pid = spawn(fn -> 1 + 2 end)
+# # => #PID<0.118.0>
+# Process.monitor(pid)
+# # => #Reference<0.906660723.3006791681.40191>
+# Process.exit(pid, :kill)
+# # => true
+# receive do
+#   msg -> msg
+# end

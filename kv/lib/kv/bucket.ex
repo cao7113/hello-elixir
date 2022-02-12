@@ -4,7 +4,7 @@ defmodule KV.Bucket do
   @doc """
   start a new bucket
   """
-  def start_link(_opts) do
+  def start_link(_opts \\ []) do
     Agent.start_link(fn -> %{} end)
   end
 
@@ -22,6 +22,13 @@ defmodule KV.Bucket do
   @spec put(pid(), String.t(), term()) :: any()
   def put(pid, k, val) do
     Agent.update(pid, &Map.put(&1, k, val))
+  end
+
+  def crash(pid) do
+    Agent.get(pid, fn state ->
+      raise "mock a crash"
+      state
+    end)
   end
 
   @doc """
