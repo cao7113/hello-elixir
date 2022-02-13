@@ -6,10 +6,12 @@ defmodule KV.Registry do
 
   @doc """
   Start registry server
+  :name required
   """
-  def start_link(opts \\ []) do
+  def start_link(opts) do
+    server = Keyword.fetch!(opts, :name)
     Logger.debug("starting registry with opts: #{inspect(opts)}")
-    GenServer.start_link(__MODULE__, %{}, opts)
+    GenServer.start_link(__MODULE__, server, opts)
   end
 
   @doc """
@@ -17,14 +19,18 @@ defmodule KV.Registry do
   """
   @spec create(pid, String.t()) :: {:ok}
   def create(r, name) do
-    GenServer.cast(r, {:create, name})
+    GenServer.call(r, {:create, name})
   end
 
   @doc """
   Lookup a named bucket
   """
-  def lookup(r, name) do
-    GenServer.call(r, {:lookup, name})
+  def lookup(server, name) do
+    # GenServer.call(r, {:lookup, name})
+    case :ets.lookup(server, name) do
+      [{^name, pid}] -> {:ok, pid}
+      [] -> :error
+    end
   end
 
   def state(r) do
@@ -36,7 +42,9 @@ defmodule KV.Registry do
   end
 
   def lookup2(name) do
-    GenServer.call(__MODULE__, {:lookup, name})
+    # GenServer.call(__MODULE__, {:lookup, name})
+    {:ok, pid} = lookup(__MODULE__, name)
+    pid
   end
 
   def state2() do
@@ -46,15 +54,46 @@ defmodule KV.Registry do
   # server-side callbacks
 
   @impl true
-  def init(_opts) do
-    {:ok, {%{}, %{}}}
+  def init(table) do
+    names = :ets.new(table, [:named_table, read_concurrency: true])
+    {:ok, {names, %{}}}
   end
 
   @impl true
-  def handle_call({:lookup, name}, _from, state) do
-    {names, _} = state
-    {:reply, Map.fetch(names, name), state}
+  def handle_call({:create, name}, _from, {table, refs}) do
+    case lookup(table, name) do
+      {:ok, pid} ->
+        {:reply, pid, {table, refs}}
+
+      :error ->
+        {:ok, bucket} = DynamicSupervisor.start_child(KV.BucketSupervisor, KV.Bucket)
+        ref = Process.monitor(bucket)
+        new_refs = Map.put(refs, ref, name)
+        :ets.insert(table, {name, bucket})
+        Logger.debug("created bucket with name: #{name} and #{inspect(bucket)}")
+        {:reply, bucket, {table, new_refs}}
+    end
+
+    # if Map.has_key?(names, name) do
+    #   {:noreply, state}
+    # else
+    #   # {:ok, bucket} = KV.Bucket.start_link([])
+    #   {:ok, bucket} = DynamicSupervisor.start_child(KV.BucketSupervisor, KV.Bucket)
+
+    #   ref = Process.monitor(bucket)
+    #   Logger.debug("created bucket with name: #{name} and #{inspect(bucket)}")
+
+    #   new_names = Map.put(names, name, bucket)
+    #   new_refs = Map.put(refs, ref, name)
+    #   {:noreply, {new_names, new_refs}}
+    # end
   end
+
+  # @impl true
+  # def handle_call({:lookup, name}, _from, state) do
+  #   {names, _} = state
+  #   {:reply, Map.fetch(names, name), state}
+  # end
 
   @impl true
   def handle_call(:state, _from, state) do
@@ -62,36 +101,16 @@ defmodule KV.Registry do
   end
 
   @impl true
-  def handle_cast({:create, name}, state) do
-    {names, refs} = state
-
-    if Map.has_key?(names, name) do
-      {:noreply, state}
-    else
-      # {:ok, bucket} = KV.Bucket.start_link([])
-      {:ok, bucket} = DynamicSupervisor.start_child(KV.BucketSupervisor, KV.Bucket)
-
-      ref = Process.monitor(bucket)
-      Logger.debug("created bucket with name: #{name} and #{inspect(bucket)}")
-
-      new_names = Map.put(names, name, bucket)
-      new_refs = Map.put(refs, ref, name)
-      {:noreply, {new_names, new_refs}}
-    end
-  end
-
-  @impl true
-  def handle_info({:DOWN, ref, :process, _obj, reason}, state) do
-    {names, refs} = state
-    name = refs[ref]
-    new_names = Map.delete(names, name)
-    new_refs = Map.delete(refs, ref)
+  def handle_info({:DOWN, ref, :process, _obj, reason}, {names, refs}) do
+    {name, refs} = Map.pop(refs, ref)
+    [{_, pid}] = :ets.lookup(names, name)
+    :ets.delete(names, name)
 
     Logger.debug(
-      "clean DOWN process name: #{inspect(name)} pid: #{inspect(names[name])} for reason: #{inspect(reason)}"
+      "clean DOWN process name: #{inspect(name)} pid: #{inspect(pid)} for reason: #{inspect(reason)}"
     )
 
-    {:noreply, {new_names, new_refs}}
+    {:noreply, {names, refs}}
   end
 
   @impl true

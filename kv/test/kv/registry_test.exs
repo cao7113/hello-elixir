@@ -2,12 +2,12 @@ defmodule Test.Kv.RegistryTest do
   use ExUnit.Case
   alias KV.Registry, as: Reg
 
-  setup %{} do
-    reg = start_supervised!(Reg)
-    %{registry: reg}
+  setup ctx do
+    _ = start_supervised!({Reg, name: ctx.test})
+    %{registry: ctx.test}
   end
 
-  test "create and lookup", %{registry: reg} do
+  test "spawns buckets", %{registry: reg} do
     assert :error == Reg.lookup(reg, "unknown-bucket")
 
     Reg.create(reg, "shopping")
@@ -23,6 +23,9 @@ defmodule Test.Kv.RegistryTest do
     {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
     # normal stop
     Agent.stop(bucket)
+
+    # Do a call to ensure the registry processed the DOWN message
+    _ = KV.Registry.create(registry, "bogus")
     assert KV.Registry.lookup(registry, "shopping") == :error
   end
 
@@ -32,6 +35,9 @@ defmodule Test.Kv.RegistryTest do
 
     # If a process terminates with a reason different than :normal, all linked processes receive an EXIT signal, causing the linked process to also terminate unless it is trapping exits.
     Agent.stop(bucket, :shutdown)
+
+    # Do a call to ensure the registry processed the DOWN message
+    _ = KV.Registry.create(registry, "bogus")
     assert KV.Registry.lookup(registry, "shopping") == :error
   end
 end
