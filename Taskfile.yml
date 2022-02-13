@@ -39,10 +39,20 @@ tasks:
     cmds:
     - mix new tmp_demo_umbrella --umbrella
 
-  create-mix-guide-kv:
-    desc: create tmp KV as guide
+  create-guide-kv:
+    desc: create KV as guide
     cmds:
     - mix new kv --module KV --app kv
+
+  create-kv-umbrella:
+    desc: create umbrella project as https://elixir-lang.org/getting-started/mix-otp/dependencies-and-umbrella-projects.html#umbrella-projects
+    cmds:
+    - mix new kv_umbrella --umbrella
+  create-kv-server:
+    desc: kv server
+    cmds:
+    - cd kv_umbrella/apps
+    - mix new kv_server --module KVServer --sup
 
   install-deps:
     desc: "install deps"
