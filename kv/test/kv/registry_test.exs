@@ -21,9 +21,17 @@ defmodule Test.Kv.RegistryTest do
   test "removes buckets on exit", %{registry: registry} do
     KV.Registry.create(registry, "shopping")
     {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
+    # normal stop
     Agent.stop(bucket)
     assert KV.Registry.lookup(registry, "shopping") == :error
   end
-end
 
-# alias KV.Registry, as: Reg; {:ok, r} = Reg.start_link(); Reg.create(r, "shopping"); {:ok, b} = Reg.lookup(r, "shopping"); send r, :state;
+  test "removes buckets on crash", %{registry: registry} do
+    KV.Registry.create(registry, "shopping")
+    {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
+
+    # If a process terminates with a reason different than :normal, all linked processes receive an EXIT signal, causing the linked process to also terminate unless it is trapping exits.
+    Agent.stop(bucket, :shutdown)
+    assert KV.Registry.lookup(registry, "shopping") == :error
+  end
+end

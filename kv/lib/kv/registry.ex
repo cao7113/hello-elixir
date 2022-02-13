@@ -58,7 +58,7 @@ defmodule KV.Registry do
 
   @impl true
   def handle_call(:state, _from, state) do
-    {:reply, state, state}
+    {:reply, {state, self()}, state}
   end
 
   @impl true
@@ -68,7 +68,9 @@ defmodule KV.Registry do
     if Map.has_key?(names, name) do
       {:noreply, state}
     else
-      {:ok, bucket} = KV.Bucket.start_link([])
+      # {:ok, bucket} = KV.Bucket.start_link([])
+      {:ok, bucket} = DynamicSupervisor.start_child(KV.BucketSupervisor, KV.Bucket)
+
       ref = Process.monitor(bucket)
       Logger.debug("created bucket with name: #{name} and #{inspect(bucket)}")
 
@@ -94,7 +96,7 @@ defmodule KV.Registry do
 
   @impl true
   def handle_info(msg, state) do
-    Logger.error("unexpected msg: #{inspect(msg)} for state: #{inspect(state)}")
+    Logger.info("unexpected msg: #{inspect(msg)} for state: #{inspect(state)}")
     {:noreply, state}
   end
 end
