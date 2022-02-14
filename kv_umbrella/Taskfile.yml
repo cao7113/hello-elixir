@@ -1,0 +1,20 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  sh: iex -S mix
+
+  prel:
+    cmds:
+    - MIX_ENV=prod mix release foo --overwrite --force
+
+  cmds:
+    cmds:
+    - _build/prod/rel/foo/bin/foo
+  
+  start:
+    cmds:
+    - _build/prod/rel/foo/bin/foo start
+  
+  init-rel-config:
+    cmds:
+    - mix release.init
