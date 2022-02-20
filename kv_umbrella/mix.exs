@@ -10,7 +10,13 @@ defmodule KvUmbrella.MixProject do
       releases: [
         foo: [
           version: "0.0.1",
-          applications: [kv_server: :permanent, kv: :permanent]
+          applications: [kv_server: :permanent, kv: :permanent],
+          cookie: "weknoweachother"
+        ],
+        bar: [
+          version: "0.0.1",
+          applications: [kv: :permanent],
+          cookie: "weknoweachother"
         ]
       ]
     ]

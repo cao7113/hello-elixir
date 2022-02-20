@@ -30,7 +30,9 @@ defmodule KVServer.Command do
 
   """
   def parse(line) do
-    case String.split(line) do
+    [h | t] = String.split(line)
+
+    case [String.upcase(h) | t] do
       ["CREATE", bucket] -> {:ok, {:create, bucket}}
       ["GET", bucket, key] -> {:ok, {:get, bucket, key}}
       ["PUT", bucket, key, value] -> {:ok, {:put, bucket, key, value}}
@@ -44,9 +46,16 @@ defmodule KVServer.Command do
   """
   def run(command, pid)
 
-  def run({:create, bucket}, pid) do
-    KV.Registry.create(pid, bucket)
-    {:ok, "OK\r\n"}
+  # def run({:create, bucket}, rid) do
+  #   KV.Registry.create(rid, bucket)
+  #   {:ok, "OK\r\n"}
+  # end
+
+  def run({:create, bucket}, rid) do
+    case KV.Router.route(bucket, KV.Registry, :create, [rid, bucket]) do
+      pid when is_pid(pid) -> {:ok, "OK\r\n"}
+      _ -> {:error, "FAILED TO CREATE BUCKET"}
+    end
   end
 
   def run({:get, bucket, key}, rid) do
@@ -70,8 +79,15 @@ defmodule KVServer.Command do
     end)
   end
 
+  # defp lookup(rid, bucket, callback) do
+  #   case KV.Registry.lookup(rid, bucket) do
+  #     {:ok, pid} -> callback.(pid)
+  #     :error -> {:error, :not_found}
+  #   end
+  # end
+
   defp lookup(rid, bucket, callback) do
-    case KV.Registry.lookup(rid, bucket) do
+    case KV.Router.route(bucket, KV.Registry, :lookup, [rid, bucket]) do
       {:ok, pid} -> callback.(pid)
       :error -> {:error, :not_found}
     end

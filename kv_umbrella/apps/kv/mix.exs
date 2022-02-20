@@ -19,6 +19,7 @@ defmodule KV.MixProject do
   def application do
     [
       extra_applications: [:logger],
+      env: [route_table: []],
       mod: {KV.Application, []}
     ]
   end

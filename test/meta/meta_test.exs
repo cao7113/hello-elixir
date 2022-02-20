@@ -47,7 +47,7 @@ defmodule Meta.QuotedExpressionTest do
   test "Macro.escape/2" do
     m = %{a: 1}
     f = quote do: unquote(m)
-    assert m == m
+    assert m == f
 
     # map should escaped before unquoting
     e = quote do: unquote(Macro.escape(m))

@@ -2,3 +2,15 @@
 version: '3'
 tasks:
   sh: iex -S mix
+
+  bar-node:
+    desc: start bar node process
+    cmds:
+    - iex --sname bar@localhost -S mix
+  
+  foo-test:
+    desc: start foo test with all distributed test cases
+    deps:
+    # - bar-node
+    cmds:
+    - iex --sname foo@localhost -S mix test

@@ -54,6 +54,11 @@ tasks:
     - |
       cd kv_umbrella/apps
       mix new kv_server --module KVServer --sup
+  
+  create-hi-ecto:
+    desc: create hi-ecto demo project
+    cmds:
+    - mix new hi_ecto --sup
 
   install-deps:
     desc: "install deps"

@@ -11,6 +11,7 @@ defmodule KVServer.CommandTest do
   #   assert {:ok, "OK\r\n"} == KVServer.Command.run({:ok, "shopping"}, reg)
   # end
 
+  @tag :distributed
   test "run" do
     pid = start_supervised!({KV.Registry, name: :"run-it"})
     assert {:ok, "OK\r\n"} == KVServer.Command.run({:create, "shopping"}, pid)

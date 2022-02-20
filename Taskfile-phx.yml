@@ -13,7 +13,7 @@ tasks:
       - mix archive.install hex phx_new 
       #- mix help phx.new
     
-  create-demo:
+  create-tmp-demo:
     desc: "new phx demo project"
     cmds:
       - mix phx.new tmp-phx-demo --module TmpPhxDemo --app tmp_phx_demo  # --database mysql or --no-ecto

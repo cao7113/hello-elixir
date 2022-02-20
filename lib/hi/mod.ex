@@ -1,19 +1,19 @@
-defmodule DemoMod do
+defmodule Hi.Mod do
   require Logger
 
   # run when compiled
-  Logger.info("DemoModule in top level __MODULE__: #{__MODULE__}")
+  Logger.info("Hi.Mod in top level __MODULE__: #{__MODULE__}")
 
   defmacro __using__(_opts) do
     # run when used
-    Logger.info("DemoModule in __using__ macro top level __MODULE__: #{__MODULE__}")
+    Logger.info("Hi.Mod in __using__ macro top level __MODULE__: #{__MODULE__}")
 
     quote do
       # expand when compile
 
       # run when used, in caller context
-      Logger.info("DemoModule in quote level __MODULE__: #{__MODULE__}")
-      Logger.info("DemoModule in quote level unquote(__MODULE__): #{unquote(__MODULE__)}")
+      Logger.info("Hi.Mod in quote level __MODULE__: #{__MODULE__}")
+      Logger.info("Hi.Mod in quote level unquote(__MODULE__): #{unquote(__MODULE__)}")
 
       def fun1() do
         Logger.info(
@@ -24,18 +24,18 @@ defmodule DemoMod do
   end
 end
 
-defmodule Try do
+defmodule Try1 do
   require Logger
 
-  use DemoMod
+  use Hi.Mod
 
   def hi do
     fun1()
   end
 end
 
-defmodule Try1 do
+defmodule Try2 do
   require Logger
 
-  use DemoMod
+  use Hi.Mod
 end

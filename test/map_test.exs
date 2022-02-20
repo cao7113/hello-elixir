@@ -1,3 +1,7 @@
+defmodule TUser do
+  defstruct [:name]
+end
+
 defmodule MapTest do
   use ExUnit.Case
 
@@ -14,5 +18,11 @@ defmodule MapTest do
 
     m = %{a: 3}
     assert {3, %{}} == Map.pop(m, :a)
+  end
+
+  test "from_struct" do
+    assert %{name: nil} == Map.from_struct(TUser)
+    u = %TUser{name: "hi"}
+    assert %{name: "hi"} == Map.from_struct(u)
   end
 end

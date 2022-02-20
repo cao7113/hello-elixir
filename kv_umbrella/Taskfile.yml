@@ -4,8 +4,17 @@ tasks:
   sh: iex -S mix
 
   prel:
+    deps:
+    - rel-foo
+    - rel-bar
+
+  rel-foo:
     cmds:
     - MIX_ENV=prod mix release foo --overwrite --force
+  
+  rel-bar:
+    cmds:
+    - MIX_ENV=prod mix release bar --overwrite --force
 
   cmds:
     cmds:
@@ -18,3 +27,29 @@ tasks:
   init-rel-config:
     cmds:
     - mix release.init
+
+  test: mix test
+
+  default: 
+    deps:
+    - test
+
+  bar-node:
+    desc: start bar node process
+    cmds:
+    - iex --sname bar@localhost -S mix
+  
+  foo-test:
+    desc: start foo test with all distributed test cases
+    deps:
+    # - bar-node
+    cmds:
+    - iex --sname foo@localhost -S mix test
+  
+  dist-test:
+    cmds:
+    - elixir --sname foo@localhost -S mix test --only distributed
+
+  telnet:
+    cmds:
+    - telnet 127.0.0.1 4040
