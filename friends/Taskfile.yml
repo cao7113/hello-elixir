@@ -1,7 +1,19 @@
 # https://taskfile.dev
 version: '3'
 tasks:
-  setup-friends:
+  default:
+    deps:
+    - test
+    
+  test: mix test
+
+  sql:
+    cmds:
+    - pgcli friends
+
+  sh: iex -S mix
+
+  init:
     desc: setup friends
     cmds:
     - mix deps.get
