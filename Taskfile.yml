@@ -55,10 +55,10 @@ tasks:
       cd kv_umbrella/apps
       mix new kv_server --module KVServer --sup
   
-  create-hi-ecto:
-    desc: create hi-ecto demo project
+  create-ecto-friends:
+    desc: create ecto guide project as https://hexdocs.pm/ecto/getting-started.html
     cmds:
-    - mix new hi_ecto --sup
+    - mix new friends --sup
 
   install-deps:
     desc: "install deps"

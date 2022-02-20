@@ -1,0 +1,9 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  setup-friends:
+    desc: setup friends
+    cmds:
+    - mix deps.get
+    - mix ecto.gen.repo -r Friends.Repo
+  
