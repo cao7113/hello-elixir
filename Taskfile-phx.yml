@@ -16,7 +16,7 @@ tasks:
   create-tmp-demo:
     desc: "new phx demo project"
     cmds:
-      - mix phx.new tmp-phx-demo --module TmpPhxDemo --app tmp_phx_demo  # --database mysql or --no-ecto
+      - mix phx.new tmp-phx --module TmpPhx --app tmp_phx  # --database mysql or --no-ecto
 
   init-pg-user:
     desc: create init dev user

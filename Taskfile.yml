@@ -55,6 +55,11 @@ tasks:
       cd kv_umbrella/apps
       mix new kv_server --module KVServer --sup
   
+  create-phx-up-and-running:
+    desc: create phx up and running as https://hexdocs.pm/phoenix/up_and_running.html
+    cmds:
+    - mix phx.new phx-up-running --module Hello --app hello
+  
   create-ecto-friends:
     desc: create ecto guide project as https://hexdocs.pm/ecto/getting-started.html
     cmds:
