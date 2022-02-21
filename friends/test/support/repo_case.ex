@@ -10,6 +10,7 @@ defmodule Friends.RepoCase do
       import Ecto
       import Ecto.Query
       import Friends.RepoCase
+      import Friends.Factory
 
       # and any other stuff
     end

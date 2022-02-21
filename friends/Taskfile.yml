@@ -12,6 +12,12 @@ tasks:
     - pgcli friends
 
   sh: iex -S mix
+  
+  tsh: 
+    cmds:
+    - iex -S mix
+    env:
+      MIX_ENV: test
 
   init:
     desc: setup friends
