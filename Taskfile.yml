@@ -65,6 +65,11 @@ tasks:
     cmds:
     - mix new friends --sup
 
+  create-hello-block:
+    desc: try blockchain with elixir
+    cmds:
+    - mix new hello-block --module HelloBlock --app hello_block --sup
+
   install-deps:
     desc: "install deps"
     cmds:

@@ -20,14 +20,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-hello_elixir-*.tar
+hello_block-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
-
-
-/.elixir_ls
-/tmp*
-*.beam
-
-.env
