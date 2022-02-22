@@ -8,6 +8,7 @@ defmodule HelloWeb.Router do
     plug(:put_root_layout, {HelloWeb.LayoutView, :root})
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug(HelloWeb.Plugs.Locale, "en")
   end
 
   pipeline :api do
