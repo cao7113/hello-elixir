@@ -24,6 +24,8 @@ defmodule Hello.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Hello.DataCase
+
+      alias Hello.User
     end
   end
 

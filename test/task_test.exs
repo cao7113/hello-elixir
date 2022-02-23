@@ -26,4 +26,17 @@ defmodule TaskTest do
 
     assert 3 == 1 + Task.await(task)
   end
+
+  test "async_link" do
+    {:ok, pid} = Task.Supervisor.start_link()
+    assert is_pid(pid)
+
+    t =
+      Task.Supervisor.async_nolink(pid, fn ->
+        Process.sleep(1000)
+        2
+      end)
+
+    assert 1 + Task.await(t) == 3
+  end
 end

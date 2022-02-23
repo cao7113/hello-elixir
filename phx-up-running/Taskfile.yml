@@ -8,3 +8,5 @@ tasks:
   run: iex -S mix phx.server
 
   svr: mix phx.server
+
+  db: pgcli hello_dev

@@ -59,6 +59,11 @@ tasks:
     desc: create phx up and running as https://hexdocs.pm/phoenix/up_and_running.html
     cmds:
     - mix phx.new phx-up-running --module Hello --app hello
+
+  create-phx-umbrella:
+    desc: create phx with umbrella
+    cmds:
+    - mix phx.new tmp-phx-umbrella --module TmpPhxUm --app tmp_phx_um --umbrella
   
   create-ecto-friends:
     desc: create ecto guide project as https://hexdocs.pm/ecto/getting-started.html
