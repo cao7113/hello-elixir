@@ -10,3 +10,8 @@ tasks:
   svr: mix phx.server
 
   db: pgcli hello_dev
+
+  init-postgres-user:
+    cmds:
+    - echo set password use postgres
+    - createuser postgres -s -P
