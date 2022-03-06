@@ -1,5 +1,5 @@
 # https://taskfile.dev
-version: '3'
+version: "3"
 vars:
   erlangVersion: "24.2.1"
   elixirVersion: "1.13.2-otp-24"
@@ -17,7 +17,6 @@ tasks:
     desc: "run into iex session"
     cmds:
       - iex -S mix
-    silent: true
 
   test:
     desc: "run text"
@@ -26,54 +25,54 @@ tasks:
     cmds:
       - mix format
       - mix test
-  
+
   init-create:
     cmds:
-    - mix new . --module HelloElixir --app hello_elixir --sup
+      - mix new . --module HelloElixir --app hello_elixir --sup
 
   create-tmp-demo:
     cmds:
-    - mix new tmp-demo --module TmpDemo --app tmp_demo --sup
+      - mix new tmp-demo --module TmpDemo --app tmp_demo --sup
 
   create-tmp-demo-umb:
     cmds:
-    - mix new tmp_demo_umbrella --umbrella
+      - mix new tmp_demo_umbrella --umbrella
 
   create-guide-kv:
     desc: create KV as guide
     cmds:
-    - mix new kv --module KV --app kv
+      - mix new kv --module KV --app kv
 
   create-kv-umbrella:
     desc: create umbrella project as https://elixir-lang.org/getting-started/mix-otp/dependencies-and-umbrella-projects.html#umbrella-projects
     cmds:
-    - mix new kv_umbrella --umbrella
+      - mix new kv_umbrella --umbrella
   create-kv-server:
     desc: kv server
     cmds:
-    - |
-      cd kv_umbrella/apps
-      mix new kv_server --module KVServer --sup
-  
+      - |
+        cd kv_umbrella/apps
+        mix new kv_server --module KVServer --sup
+
   create-phx-up-and-running:
     desc: create phx up and running as https://hexdocs.pm/phoenix/up_and_running.html
     cmds:
-    - mix phx.new phx-up-running --module Hello --app hello
+      - mix phx.new phx-up-running --module Hello --app hello
 
   create-phx-umbrella:
     desc: create phx with umbrella
     cmds:
-    - mix phx.new tmp-phx-umbrella --module TmpPhxUm --app tmp_phx_um --umbrella
-  
+      - mix phx.new tmp-phx-umbrella --module TmpPhxUm --app tmp_phx_um --umbrella
+
   create-ecto-friends:
     desc: create ecto guide project as https://hexdocs.pm/ecto/getting-started.html
     cmds:
-    - mix new friends --sup
+      - mix new friends --sup
 
   create-hello-block:
     desc: try blockchain with elixir
     cmds:
-    - mix new hello-block --module HelloBlock --app hello_block --sup
+      - mix new hello-block --module HelloBlock --app hello_block --sup
 
   install-deps:
     desc: "install deps"
@@ -88,19 +87,18 @@ tasks:
       # ref asdf where elixir
 
   ###################################################
-  #   VsCode 
-  # extension: 
+  #   VsCode
+  # extension:
   # https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls
-
 
   ###################################################
   #   Setup Env
   setup:
     desc: "setup elixir dev env"
     cmds:
-    - task: install-asdf-elixir
-    # - task: install-brew-elixir
-    - task: version
+      - task: install-asdf-elixir
+      # - task: install-brew-elixir
+      - task: version
 
   version:
     desc: "show elixir version"
@@ -129,13 +127,13 @@ tasks:
     cmds:
       - asdf global erlang {{.erlangVersion}}
       - asdf global elixir {{.elixirVersion}}
-  
+
   install-asdf-erlang:
     desc: "install asdf erlang"
     cmds:
       - task: init-asdf-erlang
       - asdf install erlang {{.erlangVersion}}
-  
+
   init-asdf-erlang:
     desc: "init asdf erlang plugin"
     cmds:
@@ -144,9 +142,9 @@ tasks:
   install-brew-elixir:
     desc: "install elixir by mac-os brew"
     status:
-    - which elixir
+      - which elixir
     cmds:
-    - brew install elixir
+      - brew install elixir
 
   ###################################################
   #        Docker
@@ -154,12 +152,12 @@ tasks:
   dk-pull:
     desc: docker pull image as https://hub.docker.com/r/hexpm/elixir/tags?page=1&ordering=name&name=1.13.2-erlang-24.2-al
     cmds:
-    - docker pull hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0
+      - docker pull hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0
 
   dk-sh:
     desc: "run into docker elixir session"
     cmds:
-    - docker run -it --rm hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0 iex
+      - docker run -it --rm hexpm/elixir:1.13.2-erlang-24.2-alpine-3.15.0 iex
 
   ###################################################
   # Elixir & Erlang
