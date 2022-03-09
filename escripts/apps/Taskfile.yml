@@ -1,0 +1,7 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  demo: mix-demo/mix_demo
+  demo-install: cd mix-demo && mix escript.install # put into local paths
+  demo-build: cd mix-demo && mix deps.get escript.build
+  demo-create: mix new mix-demo --module MixDemo --app mix_demo
