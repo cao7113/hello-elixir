@@ -1,0 +1,7 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  create-scraper:
+    cmds:
+    - mix new scraper --sup
+  
