@@ -1,0 +1,7 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  init-counter:
+    desc: "create counter demo as https://www.diegofreijo.com/blog/a-gentle-introduction-to-phoenix-liveview-and-tailwind"
+    cmds:
+    - mix phx.new counter --live
