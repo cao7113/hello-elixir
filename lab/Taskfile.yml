@@ -1,0 +1,6 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  init-assets:
+    cmds:
+    - mix phx.new phx_assets
