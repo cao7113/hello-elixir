@@ -10,7 +10,7 @@ tasks:
   install-deps:
     cmds:
     - mix deps.get
-    - mix tailwind.install
+    #- mix tailwind.install
     
   install-ws:
     desc: websocket client as https://github.com/vi/websocat
