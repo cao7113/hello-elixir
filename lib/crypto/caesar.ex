@@ -64,14 +64,3 @@ defmodule Crypto.Caesar do
 
   def _down_char(c), do: c
 end
-
-# defp pmap(list, f) do
-#   me = self
-#   list
-#   |> Enum.map(fn(i) ->
-#     spawn_link fn -> (send me, { self, f.(i) }) end
-#   end)
-#   |> Enum.map(fn (pid) ->
-#     receive do { ^pid, result } -> result end
-#   end)
-# end
