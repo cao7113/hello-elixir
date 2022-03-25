@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database
-config :counter, Counter.Repo,
+config :phoenix_fund, PhoenixFund.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "counter_dev",
+  database: "phoenix_fund_dev",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -15,19 +15,17 @@ config :counter, Counter.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :counter, CounterWeb.Endpoint,
+config :phoenix_fund, PhoenixFundWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "5OWCf8zur20l1DXsLBfEZGCN55lSlGL1PA0q4yx25YG1+/ZkT+gBubOAWchp4jZ4",
+  secret_key_base: "BTsFX5eRCIaSgDsYt7i+8Q9IGuoTrWN2GEa6E2Z8ORfCqOniwcROs4a/kDgAWFwN",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    # use tailwind css
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -55,18 +53,18 @@ config :counter, CounterWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :counter, CounterWeb.Endpoint,
+config :phoenix_fund, PhoenixFundWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/counter_web/(live|views)/.*(ex)$",
-      ~r"lib/counter_web/templates/.*(eex)$"
+      ~r"lib/phoenix_fund_web/(live|views)/.*(ex)$",
+      ~r"lib/phoenix_fund_web/templates/.*(eex)$"
     ]
   ]
 
 # Do not include metadata nor timestamps in development logs
-# config :logger, :console, format: "[$level] $message\n"
+config :logger, :console, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

@@ -3,10 +3,16 @@
 version: '3'
 
 tasks:
-  
+  sh: iex -S mix
   run: mix phx.server
+  open: open https://localhost:4000/counter
 
   install-deps:
     cmds:
     - mix deps.get
     - mix tailwind.install
+    
+  install-ws:
+    desc: websocket client as https://github.com/vi/websocat
+    cmds:
+    - brew install websocat
