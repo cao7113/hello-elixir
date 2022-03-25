@@ -1,5 +1,7 @@
 # PhoenixFund
 
+Raw source code: https://github.com/amacgregor/phoenix_fund
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`

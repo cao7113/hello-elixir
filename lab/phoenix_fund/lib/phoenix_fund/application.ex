@@ -14,6 +14,7 @@ defmodule PhoenixFund.Application do
       PhoenixFundWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: PhoenixFund.PubSub},
+      # {Phoenix.PubSub, [name: PhoenixFund.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Start the Endpoint (http/https)
       PhoenixFundWeb.Endpoint
       # Start a worker by calling: PhoenixFund.Worker.start_link(arg)

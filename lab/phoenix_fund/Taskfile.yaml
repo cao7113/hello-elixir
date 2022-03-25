@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  sh: iex -S mix
+  run: mix phx.server
+  open: open http://localhost:4000/auction
+
+  install-deps:
+    cmds:
+    - mix deps.get
+    #- mix tailwind.install
