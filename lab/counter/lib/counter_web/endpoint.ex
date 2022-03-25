@@ -7,7 +7,7 @@ defmodule CounterWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_counter_key",
-    signing_salt: "FqX7aPXO"
+    signing_salt: "gMMpN3V6"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

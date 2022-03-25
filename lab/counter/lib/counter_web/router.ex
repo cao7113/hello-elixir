@@ -17,6 +17,7 @@ defmodule CounterWeb.Router do
   scope "/", CounterWeb do
     pipe_through(:browser)
 
+    # New route
     live("/counter", CounterLive)
 
     get("/", PageController, :index)

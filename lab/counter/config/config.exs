@@ -15,7 +15,7 @@ config :counter, CounterWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: CounterWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Counter.PubSub,
-  live_view: [signing_salt: "RFjRTpJ9"]
+  live_view: [signing_salt: "0B777Arw"]
 
 # Configures the mailer
 #

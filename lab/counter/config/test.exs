@@ -17,7 +17,7 @@ config :counter, Counter.Repo,
 # you can enable the server option below.
 config :counter, CounterWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "frpegKqcBLR1U08jr/+4qg9LLn9NbWCryMR9xET3nvoUB//ZShPCGemqzivNOxf4",
+  secret_key_base: "d7IcRv7DGvxVfE4wYeLcN3p0nSFw841N+DC5MekkdiQo3XLpBiXzBCsfuOiodrhA",
   server: false
 
 # In test we don't send emails.

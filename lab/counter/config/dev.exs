@@ -22,11 +22,11 @@ config :counter, CounterWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "5OWCf8zur20l1DXsLBfEZGCN55lSlGL1PA0q4yx25YG1+/ZkT+gBubOAWchp4jZ4",
+  secret_key_base: "CUvr13pxCUJyr254vT8YftkPuz5WMEzEvdlzJOj8kDinU3BcjmfsSXaYV/60JIUc",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    # watch tailwind css
+    # tailwind css
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
