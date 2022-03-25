@@ -38,15 +38,15 @@ defmodule Crypto.Test.CaesarTest do
     assert raw == decrypt(cipher, 1)
   end
 
-  test "up_then_move_n" do
-    assert ?B == up_then_move_n(?a, 1)
-    assert ?A == up_then_move_n(?z, 1)
-    assert ?A == up_then_move_n(?y, 2)
+  test "encrypt_shift" do
+    assert ?B == encrypt_shift(?a, 1)
+    assert ?A == encrypt_shift(?z, 1)
+    assert ?A == encrypt_shift(?y, 2)
   end
 
   test "down_then_move_n" do
-    assert ?a == down_then_back_n(?B, 1)
-    assert ?z == down_then_back_n(?A, 1)
-    assert ?y == down_then_back_n(?A, 2)
+    assert ?a == decrypt_back_shift(?B, 1)
+    assert ?z == decrypt_back_shift(?A, 1)
+    assert ?y == decrypt_back_shift(?A, 2)
   end
 end

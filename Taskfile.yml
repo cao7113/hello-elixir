@@ -16,7 +16,7 @@ tasks:
   sh:
     desc: "run into iex session"
     cmds:
-      - iex -S mix
+      - iex --erl "-kernel shell_history enabled" -S mix
 
   test:
     desc: "run text"

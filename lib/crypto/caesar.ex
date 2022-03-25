@@ -1,42 +1,77 @@
 defmodule Crypto.Caesar do
+  @moduledoc """
+    Caesar encrypt and decrypt
+    downcase represent plain text
+    upcase represent cipher text
+  """
+  require Logger
+
   @num 26
-  @diff 0x20
+  @case_diff 0x20
 
   def encrypt(str, n) do
     str
+    |> String.downcase()
     |> String.to_charlist()
-    |> Enum.map(fn c -> up_then_move_n(c, n) end)
+    |> Enum.map(fn c -> encrypt_shift(c, n) end)
     |> to_string
   end
+
+  def encrypt_p(str, n) do
+    str
+    |> String.downcase()
+    |> String.to_charlist()
+    |> Enum.map(fn c ->
+      Task.async(fn ->
+        encrypt_shift(c, n)
+      end)
+    end)
+    |> Enum.map(fn t ->
+      Task.await(t)
+    end)
+    |> to_string
+  end
+
+  def encrypt_shift(c, _n) when c < ?a or c > ?z, do: c
+
+  def encrypt_shift(c, n) when n >= 0 do
+    (c - @case_diff + rem(n, @num)) |> _up_char
+  end
+
+  def _up_char(c) when c > ?Z do
+    (c - @num) |> _up_char
+  end
+
+  def _up_char(c), do: c
 
   def decrypt(str, n) do
     str
+    |> String.upcase()
     |> String.to_charlist()
-    |> Enum.map(fn c -> down_then_back_n(c, n) end)
+    |> Enum.map(fn c -> decrypt_back_shift(c, n) end)
     |> to_string
   end
 
-  def down_then_back_n(?\s, _), do: ?\s
+  def decrypt_back_shift(?\s, _), do: ?\s
 
-  def down_then_back_n(c, n) when n >= 0 do
-    (c + @diff - rem(n, @num)) |> get_char2()
+  def decrypt_back_shift(c, n) when n >= 0 do
+    (c + @case_diff - rem(n, @num)) |> _down_char()
   end
 
-  def get_char2(c) when c >= ?a, do: c
-
-  def get_char2(c) do
-    (c + @num) |> get_char2()
+  def _down_char(c) when c < ?a do
+    (c + @num) |> _down_char
   end
 
-  def up_then_move_n(?\s, _n), do: ?\s
-
-  def up_then_move_n(c, n) when n >= 0 do
-    (c - @diff + rem(n, @num)) |> get_char
-  end
-
-  def get_char(c) when c > ?Z do
-    get_char(c - @num)
-  end
-
-  def get_char(c), do: c
+  def _down_char(c), do: c
 end
+
+# defp pmap(list, f) do
+#   me = self
+#   list
+#   |> Enum.map(fn(i) ->
+#     spawn_link fn -> (send me, { self, f.(i) }) end
+#   end)
+#   |> Enum.map(fn (pid) ->
+#     receive do { ^pid, result } -> result end
+#   end)
+# end

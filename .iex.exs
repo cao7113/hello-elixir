@@ -1,2 +1,5 @@
+# Faker
+alias Faker, as: F
+
 # Crypto
-import Crypto.Caesar
+alias Crypto.Caesar, as: Cas
