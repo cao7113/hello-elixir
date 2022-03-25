@@ -25,7 +25,7 @@ defmodule Crypto.Test.CaesarTest do
     # |> try_find()
     # |> IO.inspect()
     raw =
-      "if you want to learn more about cryptography i recommend an online course instructed by professor dan boneh from stanford university just search cryptography at courseraqorg"
+      "if you want to learn more about cryptography i recommend an online course instructed by professor dan boneh from stanford university just search cryptography at coursera.org"
 
     assert raw == decrypt(cipher, 17)
   end

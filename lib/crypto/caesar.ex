@@ -52,7 +52,7 @@ defmodule Crypto.Caesar do
     |> to_string
   end
 
-  def decrypt_back_shift(?\s, _), do: ?\s
+  def decrypt_back_shift(c, _) when c < ?A or c > ?Z, do: c
 
   def decrypt_back_shift(c, n) when n >= 0 do
     (c + @case_diff - rem(n, @num)) |> _down_char()
