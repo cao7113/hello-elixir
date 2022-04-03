@@ -11,7 +11,7 @@ defmodule Crypto.Test.CaesarTest do
 
   test "find p24 caesar plaintext" do
     cipher = "PELCGBTENCUL"
-    # cipher |> try_find() |> IO.inspect()
+
     raw = "cryptography"
     assert raw == decrypt(cipher, 13)
   end
@@ -21,9 +21,6 @@ defmodule Crypto.Test.CaesarTest do
     cipher =
       "ZW PFL NREK KF CVRIE DFIV RSFLK TIPGKFXIRGYP Z IVTFDDVEU RE FECZEV TFLIJV ZEJKILTKVU SP GIFWVJJFI URE SFEVY WIFD JKREWFIU LEZMVIJZKP ALJK JVRITY TIPGKFXIRGYP RK TFLIJVIR.FIX"
 
-    # cipher
-    # |> try_find()
-    # |> IO.inspect()
     raw =
       "if you want to learn more about cryptography i recommend an online course instructed by professor dan boneh from stanford university just search cryptography at coursera.org"
 
