@@ -93,6 +93,10 @@ tasks:
 
   ###################################################
   #   Setup Env
+  install-direnv:
+    cmds:
+      - brew install direnv
+
   setup:
     desc: "setup elixir dev env"
     cmds:
