@@ -1,8 +1,8 @@
 defmodule Crypto.Caesar do
   @moduledoc """
-    Caesar encrypt and decrypt
-    downcase represent plain text
-    upcase represent cipher text
+  Caesar encrypt and decrypt
+  downcase represent plain text
+  upcase represent cipher text
   """
   require Logger
 
