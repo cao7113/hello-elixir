@@ -28,4 +28,26 @@ defmodule Process.BaseTest do
       assert result == :timeout
     end
   end
+
+  test "process crash not affect caller process" do
+    spawn(fn ->
+      raise "process crashed"
+    end)
+
+    Process.sleep(10)
+    assert true
+  end
+
+  test "trap linked-process crash" do
+    spawn_link(fn ->
+      raise "process crashed"
+    end)
+
+    Process.flag(:trap_exit, true)
+
+    assert_receive {:EXIT, _from_pid,
+                    {%RuntimeError{
+                       message: "process crashed"
+                     }, _stacks}}
+  end
 end
