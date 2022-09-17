@@ -69,6 +69,3 @@ end
 # # => #Reference<0.906660723.3006791681.40191>
 # Process.exit(pid, :kill)
 # # => true
-# receive do
-#   msg -> msg
-# end

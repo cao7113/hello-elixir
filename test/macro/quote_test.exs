@@ -1,4 +1,4 @@
-defmodule Meta.QuotedExpressionTest do
+defmodule Macro.QuotedExpressionTest do
   use ExUnit.Case
 
   test "quote values" do
