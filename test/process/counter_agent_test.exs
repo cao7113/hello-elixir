@@ -17,10 +17,14 @@ end
 defmodule CounterTest do
   use ExUnit.Case
 
-  test "try counter" do
+  test "try" do
     {:ok, _pid} = Counter.start_link(0)
     assert 0 == Counter.value()
-    Task.start_link(fn -> Counter.increment() end)
+
+    Task.start_link(fn ->
+      Counter.increment()
+    end)
+
     Counter.increment()
     Counter.increment()
     assert 3 == Counter.value()

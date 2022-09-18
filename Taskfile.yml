@@ -9,7 +9,7 @@ includes:
 tasks:
   default:
     cmds:
-      - task: sh
+      - task: test
 
   iex: iex
 
