@@ -3,6 +3,10 @@ defmodule Process.BaseTest do
   @moduletag :manual
 
   defmodule Listener do
+    def start do
+      spawn(__MODULE__, :listen, [self()])
+    end
+
     def listen(from) do
       receive do
         :hello ->
