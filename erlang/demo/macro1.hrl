@@ -1,0 +1,1 @@
+-define(MACRO1(X, Y), {a, X, b, Y}).

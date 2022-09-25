@@ -2,3 +2,4 @@
 version: "3"
 tasks:
   version: erl -version
+  # erl -man io
