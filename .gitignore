@@ -30,4 +30,4 @@ hello_elixir-*.tar
 /tmp*
 *.beam
 
-.env
+.env*

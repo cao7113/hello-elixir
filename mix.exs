@@ -26,7 +26,8 @@ defmodule HelloElixir.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       # {:faker, "~> 0.17", only: :test}
       {:faker, "~> 0.17"},
-      {:abx, github: "cao7113/abx"}
+      {:abx, github: "cao7113/abx"},
+      {:feishu_bot, github: "cao7113/feishu-bot"}
     ]
   end
 end
