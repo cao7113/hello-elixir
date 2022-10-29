@@ -9,4 +9,4 @@ Mix.install([
 %{status: 200, body: release} =
   Req.get!("https://api.github.com/repos/elixir-lang/elixir/releases/tags/#{tag}")
 
-IO.puts(release)
+release |> IO.inspect()
