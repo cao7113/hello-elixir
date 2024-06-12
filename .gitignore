@@ -22,3 +22,9 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 hello_elixir-*.tar
 
+# Temporary files, for example, from tests.
+/tmp/
+
+/.elixir_ls
+
+.env*

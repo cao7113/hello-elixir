@@ -1,6 +1,6 @@
 defmodule HelloElixir do
   @moduledoc """
-  Documentation for HelloElixir.
+  Documentation for `HelloElixir`.
   """
 
   @doc """

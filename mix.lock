@@ -1,3 +1,3 @@
 %{
-  "mox": {:hex, :mox, "0.5.1", "f86bb36026aac1e6f924a4b6d024b05e9adbed5c63e8daa069bd66fb3292165b", [:mix], [], "hexpm"},
+  "hello_libary": {:hex, :hello_libary, "0.1.6", "ceced1144ef07d65bc60b8c8e85873e78841d6f6088902a94006d733fe6cbe99", [:mix], [], "hexpm", "f672a111e1affb5ddd15eec4eeec63ec6d5250070955358c63437fe495fd523a"},
 }

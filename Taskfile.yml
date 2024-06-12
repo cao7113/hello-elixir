@@ -1,27 +1,40 @@
 # https://taskfile.dev
-version: '2'
-tasks:
-  default:
-    cmds:
-      - task: t
-  sh:
-    cmds:
-      - iex -S mix
-    silent: true
-  t:
-    deps:
-      - task: install-deps
-    cmds:
-      - mix test
-  install-deps:
-    cmds:
-      - mix deps.get
+version: "3"
+vars:
+  elixirVersion: "1.16.2-otp-26"
+  erlangVersion: "26.2.4"
 
-  # mix like bundle+rake，mix help
-  setup:
-    name: setup dev environment
+tasks:
+  default: mix test
+  sh: iex --erl "-kernel shell_history enabled" -S mix
+
+  mk-hello-elixir:
     cmds:
-      # join to hex orgnazation by owner
-      # - mix hex.user auth
-      - mix deps.get    # install dependency
-      # - task: db-reset
+      - mix new . --module HelloElixir --app hello_elixir --sup
+
+  ###################################################
+  #   Setup Env
+
+  install-direnv:
+    cmds:
+      - brew install direnv
+
+  version:
+    desc: "show elixir version"
+    cmds:
+      - elixir --version
+
+  install-asdf-elixir:
+    desc: "install elxir by asdf"
+    cmds:
+      - task: install-asdf-erlang
+      - asdf plugin elixir || true
+      - asdf install elixir {{.elixirVersion}}
+      - asdf local elixir {{.elixirVersion}}
+      - task: version
+
+  install-asdf-erlang:
+    desc: "install asdf erlang"
+    cmds:
+      - asdf plugin erlang || true
+      - asdf install erlang {{.erlangVersion}}
