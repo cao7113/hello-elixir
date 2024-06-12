@@ -1,4 +1,4 @@
-defmodule Tool do
+defmodule Factorial do
   def factorial(1), do: 1
 
   def factorial(n) when n > 0 do

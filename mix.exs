@@ -23,9 +23,7 @@ defmodule HelloElixir.MixProject do
   defp deps do
     [
       {:hello_libary, "~> 0.1.6"}
-      # {:faker, "~> 0.17"},
-      # {:abx, github: "cao7113/abx"},
-      # {:feishu_bot, github: "cao7113/feishu-bot"}
+      # {:faker, "~> 0.17"}
     ]
   end
 end
