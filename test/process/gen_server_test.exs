@@ -10,7 +10,7 @@ defmodule Process.GenServerTest do
 
     @impl GenServer
     def init([]) do
-      IO.puts("g started")
+      # IO.puts("g started")
       {:ok, []}
     end
   end

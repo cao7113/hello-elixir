@@ -1,12 +1,22 @@
 # https://taskfile.dev
 version: "3"
 vars:
-  elixirVersion: "1.16.2-otp-26"
-  erlangVersion: "26.2.4"
+  elixirVersion: "1.17.0-otp-27"
+  erlangVersion: "27.0"
 
 tasks:
   default: mix test
   sh: iex --erl "-kernel shell_history enabled" -S mix
+  rel: mix release --overwrite --force
+  rsh: _build/dev/rel/hello_elixir/bin/hello_elixir start_iex
+
+  # chmod +x run/**/*.exs
+  # chmod +x script/**/*.exs
+  # iex -S mix test test/hello_elixir_test.exs:6 -b
+  slow-test: mix test --slowest 10
+  stale-test: mix test --stale
+  # https://hexdocs.pm/mix/Mix.Tasks.Test.html#module-file-system-watchers
+  smart-test: fswatch lib test | mix test --listen-on-stdin --stale
 
   mk-hello-elixir:
     cmds:

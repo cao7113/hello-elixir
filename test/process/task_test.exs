@@ -1,6 +1,8 @@
 defmodule TaskTest do
   use ExUnit.Case
 
+  @moduletag :manual
+
   test "async and await" do
     t =
       Task.async(fn ->

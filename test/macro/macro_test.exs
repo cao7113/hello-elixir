@@ -3,7 +3,7 @@
 
 defmodule Math do
   # run when compile
-  IO.puts("in Math module top level #{__MODULE__}")
+  # IO.puts("in Math module top level #{__MODULE__}")
 
   defmacro squared(x) do
     IO.puts("in macro module #{__MODULE__}")

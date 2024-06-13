@@ -2,6 +2,7 @@ defmodule DebugTest do
   use ExUnit.Case
 
   # https://elixir-lang.org/getting-started/debugging.html
+  @tag :manual
   test "debug" do
     nums = 1..10
 
