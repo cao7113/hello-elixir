@@ -10,6 +10,8 @@ tasks:
   rel: mix release --overwrite --force
   rsh: _build/dev/rel/hello_elixir/bin/hello_elixir start_iex
 
+  ## iex
+
   # chmod +x run/**/*.exs
   # chmod +x script/**/*.exs
   # iex -S mix test test/hello_elixir_test.exs:6 -b
